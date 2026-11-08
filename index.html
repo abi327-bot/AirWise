@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirWise Navigator — Smart Air Quality & Daily Activity Advisor (Offline Edition)</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+    <div class="app-layout">
+
+        <!-- 1. Left Vertical Sidebar Dock -->
+        <aside class="sidebar-dock">
+            <a href="#" class="dock-logo" title="AirWise Dashboard">
+                🍃
+            </a>
+            <div class="dock-menu">
+                <a href="#dashboard" class="dock-item active" title="Dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                </a>
+                <a href="#activities" class="dock-item" title="Activity Recommendations">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 20V10"></path>
+                        <path d="M12 20V4"></path>
+                        <path d="M6 20v-6"></path>
+                    </svg>
+                </a>
+                <a href="#forecast" class="dock-item" title="24-Hour Forecast">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </a>
+                <a href="#analytics" class="dock-item" title="Analytics & Trends">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </a>
+                <a href="#settings" class="dock-item" title="Settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="dock-bottom">
+                <a href="#info" class="dock-item" title="Documentation & Info">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                </a>
+                <div class="dock-avatar" title="Student Researcher">
+                    🌱
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard Canvas -->
+        <main class="main-canvas" id="dashboard">
+
+            <!-- 2. Top Header Bar -->
+            <header class="top-header">
+                <div class="header-left-group">
+                    <div class="brand-text-block">
+                        <div class="brand-dot-matrix">
+                            <span></span><span></span><span></span>
+                            <span></span><span></span><span></span>
+                            <span></span><span></span><span></span>
+                        </div>
+                        <h1 class="brand-title">AQI Navigator</h1>
+                    </div>
+                    <div class="header-status-pill">
+                        <span class="pulse-dot"></span>
+                        <span id="statusLabel">🟢 Standalone Simulation</span>
+                    </div>
+                </div>
+
+                <div class="header-right-group">
+                    <form id="cityForm" onsubmit="event.preventDefault(); updateCityData();" class="search-pill-box">
+                        <span class="search-icon-symbol">🔍</span>
+                        <input 
+                            type="text" 
+                            id="cityInput" 
+                            placeholder="Search for any Weather / AQI info..." 
+                            value="New Delhi" 
+                            class="search-input-field"
+                        >
+                        <button type="submit" class="search-submit-btn">Search</button>
+                    </form>
+                    <button type="button" class="icon-action-btn" title="Alerts & Notifications">
+                        🔔
+                    </button>
+                    <button type="button" class="icon-action-btn" title="View Options">
+                        ☰
+                    </button>
+                </div>
+            </header>
+
+            <!-- 3. Hero Action & Greeting Row -->
+            <section class="hero-action-row">
+                <!-- Date & Action Card -->
+                <div class="date-action-card">
+                    <div style="display: flex; align-items: center;">
+                        <span class="date-big-number">20</span>
+                        <div class="date-day-label">
+                            <strong>Monday.</strong>
+                            <span>January</span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-today-air" onclick="document.getElementById('activities').scrollIntoView({behavior: 'smooth'})">
+                        <span>Show Today's Air</span>
+                        <span>→</span>
+                    </button>
+                </div>
+
+                <!-- Conversational Forecast Greeting Card -->
+                <div class="forecast-greeting-card">
+                    <div class="greeting-text-wrap">
+                        <h2>
+                            <span>Hey, Need a Forecast?</span>
+                            <span>☁️</span>
+                        </h2>
+                        <p>Real-time particulate intelligence and activity guidance for <strong id="heroCityName">New Delhi</strong>!</p>
+                    </div>
+                    <button type="button" class="greeting-voice-btn" title="Voice Search Assistance">
+                        🎙️
+                    </button>
+                </div>
+            </section>
+
+            <!-- 4. Middle 4-Card Modular Grid -->
+            <section class="modular-quad-grid">
+
+                <!-- Card 1: Current Weather & AQI Card -->
+                <div class="quad-card card-aqi-weather">
+                    <div class="weather-aqi-top">
+                        <div class="weather-sun-icon" id="weatherIcon">⛅</div>
+                        <span style="font-size: 15px; color: var(--text-muted); cursor: pointer;" title="Search Details">🔍</span>
+                    </div>
+
+                    <div class="big-temp-reading">
+                        <span id="tempNumber">26.5</span>°C <small style="font-size: 18px; color: var(--accent-mint); font-weight: 700;">(<span id="aqiNumber">145</span> AQI)</small>
+                    </div>
+
+                    <!-- Category Badge -->
+                    <div class="aqi-pill-badge badge-usg" id="statusPill">
+                        <span id="catIcon">🟠</span>
+                        <span id="categoryText">Unhealthy for Sensitive Groups</span>
+                    </div>
+
+                    <div class="weather-meta-row">
+                        <div>📍 <strong id="locationLabel">New Delhi, India</strong></div>
+                        <div style="margin-top: 2px;">🕒 <span id="timestampText">Today</span></div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Particulate & Wind Status Card -->
+                <div class="quad-card card-wind-status">
+                    <h3>Particulate & Wind Status</h3>
+                    
+                    <div class="wave-graph-container">
+                        <svg viewBox="0 0 200 65" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+                            <rect x="10" y="30" width="2" height="25" fill="#a7f3d0" rx="1"/>
+                            <rect x="25" y="20" width="2" height="35" fill="#05c48b" rx="1"/>
+                            <rect x="40" y="35" width="2" height="20" fill="#a7f3d0" rx="1"/>
+                            <rect x="55" y="15" width="2" height="40" fill="#05c48b" rx="1"/>
+                            <rect x="70" y="25" width="2" height="30" fill="#a7f3d0" rx="1"/>
+                            <rect x="85" y="10" width="2" height="45" fill="#05c48b" rx="1"/>
+                            <rect x="100" y="20" width="2" height="35" fill="#a7f3d0" rx="1"/>
+                            <rect x="115" y="15" width="2" height="40" fill="#05c48b" rx="1"/>
+                            <rect x="130" y="30" width="2" height="25" fill="#a7f3d0" rx="1"/>
+                            <rect x="145" y="22" width="2" height="33" fill="#05c48b" rx="1"/>
+                            <rect x="160" y="12" width="2" height="43" fill="#a7f3d0" rx="1"/>
+                            <rect x="175" y="28" width="2" height="27" fill="#05c48b" rx="1"/>
+                            <rect x="190" y="36" width="2" height="19" fill="#a7f3d0" rx="1"/>
+                            <path d="M0,40 Q25,10 50,30 T100,15 T150,35 T200,20" fill="none" stroke="#05c48b" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+
+                    <div class="wind-footer-row">
+                        <div class="wind-speed-val">
+                            <span id="valPm25">52.4</span> <small>µg/m³ PM2.5</small>
+                        </div>
+                        <span class="wind-time-stamp">4:00 AM</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Deep Teal Activity Rating Card -->
+                <div class="quad-card card-deep-teal">
+                    <div class="teal-top-dots">••••</div>
+                    <div class="teal-sublabel">Activity Rating</div>
+                    <div class="teal-main-prompt">
+                        How is the air quality treating you today?
+                    </div>
+
+                    <p id="conditionPrompt" style="font-size: 12px; color: #d1fae5; line-height: 1.4; margin-bottom: 10px;">
+                        Elevated PM2.5; switch strenuous runs to indoor areas.
+                    </p>
+
+                    <div class="teal-icons-strip">
+                        <span title="Walking">🚶</span>
+                        <span title="Running">🏃</span>
+                        <span title="Cycling">🚴</span>
+                        <span title="Gardening">🌱</span>
+                        <span title="Travelling">🚗</span>
+                        <span title="Outdoor Games">⚽</span>
+                    </div>
+                </div>
+
+                <!-- Card 4: Environmental Aerial / Telemetry Map -->
+                <div class="quad-card card-aerial-map">
+                    <div class="map-view-backdrop">
+                        <div class="map-grid-overlay"></div>
+                        <div class="map-radar-pulse"></div>
+                        <div style="position: absolute; color: #a7f3d0; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;">
+                            SATELLITE TELEMETRY
+                        </div>
+                        <div class="map-controls-group">
+                            <button type="button" class="map-btn-zoom">+</button>
+                            <button type="button" class="map-btn-zoom">−</button>
+                        </div>
+                    </div>
+
+                    <div class="map-metrics-pill-row">
+                        <div class="map-metric-pill">
+                            <span>PM2.5</span>
+                            <strong id="mapPm25">52.4</strong>
+                        </div>
+                        <div class="map-metric-pill">
+                            <span>PM10</span>
+                            <strong id="mapPm10">94.0</strong>
+                        </div>
+                        <div class="map-metric-pill">
+                            <span>Humidity</span>
+                            <strong id="mapHum">55%</strong>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- 5. Bottom Split: 7-Day / 24-Hour Forecast & Full Analytics Report -->
+            <section class="bottom-analytics-split" id="forecast">
+
+                <!-- Left Column: Upcoming Forecast List -->
+                <div class="forecast-list-card">
+                    <div class="forecast-list-header">
+                        <h3>Upcoming Air Forecast</h3>
+                        <span class="select-pill-filter">24h View ▾</span>
+                    </div>
+
+                    <div class="forecast-rows-group" id="forecastTimelineRows">
+                        <!-- Populated via JS -->
+                    </div>
+
+                    <!-- Highlighted Active Bottom Banner in Deep Teal -->
+                    <div class="forecast-active-banner">
+                        <div class="active-banner-left">
+                            <span style="font-size: 24px;">🌦️</span>
+                            <div>
+                                <span style="font-size: 11px; text-transform: uppercase; color: #a7f3d0; font-weight: 700;">Cleanest Window</span>
+                                <div class="banner-temp-bold" id="cleanestWindowVal">~95 AQI</div>
+                            </div>
+                        </div>
+                        <div class="banner-wave-svg">
+                            <svg viewBox="0 0 100 30" style="width: 100%; height: 100%;">
+                                <path d="M0,20 Q25,5 50,15 T100,5" fill="none" stroke="#05c48b" stroke-width="2.5" stroke-linecap="round"/>
+                                <circle cx="50" cy="15" r="3.5" fill="#05c48b" stroke="#ffffff" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Full Air Quality & Forecast Analytics Report -->
+                <div class="report-analytics-card" id="analytics">
+                    <div class="report-header-row">
+                        <div class="report-title-group">
+                            <h3>Air Quality & Forecast Report</h3>
+                            <span class="status-stat-pill">
+                                US EPA Scale (0–500)
+                            </span>
+                        </div>
+                        <button type="button" class="btn-download-data" onclick="window.print()">
+                            <span>📥</span>
+                            <span>Download Data</span>
+                        </button>
+                    </div>
+
+                    <!-- Dual-Tone Bar Chart (Matching reference image) -->
+                    <div class="dual-bar-chart-container">
+                        <svg viewBox="0 0 700 220" style="width: 100%; height: 100%;" preserveAspectRatio="none">
+                            <line x1="40" y1="30" x2="680" y2="30" stroke="#f1f5f3" stroke-width="1"/>
+                            <line x1="40" y1="70" x2="680" y2="70" stroke="#f1f5f3" stroke-width="1"/>
+                            <line x1="40" y1="110" x2="680" y2="110" stroke="#e2ece7" stroke-width="1.5"/>
+                            <line x1="40" y1="150" x2="680" y2="150" stroke="#f1f5f3" stroke-width="1"/>
+                            <line x1="40" y1="190" x2="680" y2="190" stroke="#f1f5f3" stroke-width="1"/>
+
+                            <text x="30" y="34" fill="#94a3b8" font-size="10" text-anchor="end">200</text>
+                            <text x="30" y="74" fill="#94a3b8" font-size="10" text-anchor="end">150</text>
+                            <text x="30" y="114" fill="#64748b" font-size="10" font-weight="bold" text-anchor="end">100</text>
+                            <text x="30" y="154" fill="#94a3b8" font-size="10" text-anchor="end">50</text>
+                            <text x="30" y="194" fill="#94a3b8" font-size="10" text-anchor="end">0</text>
+
+                            <!-- Contrast Bars -->
+                            <rect x="65" y="75" width="14" height="35" fill="#0a443e" rx="3"/>
+                            <rect x="65" y="112" width="14" height="25" fill="#05c48b" rx="3"/>
+
+                            <rect x="95" y="45" width="14" height="65" fill="#0a443e" rx="3"/>
+                            <rect x="95" y="112" width="14" height="50" fill="#05c48b" rx="3"/>
+
+                            <rect x="125" y="65" width="14" height="45" fill="#0a443e" rx="3"/>
+                            <rect x="125" y="112" width="14" height="35" fill="#05c48b" rx="3"/>
+
+                            <rect x="155" y="85" width="14" height="25" fill="#0a443e" rx="3"/>
+                            <rect x="155" y="112" width="14" height="20" fill="#05c48b" rx="3"/>
+
+                            <rect x="185" y="80" width="14" height="30" fill="#0a443e" rx="3"/>
+                            <rect x="185" y="112" width="14" height="30" fill="#05c48b" rx="3"/>
+
+                            <rect x="215" y="70" width="14" height="40" fill="#0a443e" rx="3"/>
+                            <rect x="215" y="112" width="14" height="25" fill="#05c48b" rx="3"/>
+
+                            <rect x="245" y="30" width="14" height="80" fill="#0a443e" rx="3"/>
+                            <rect x="245" y="112" width="14" height="25" fill="#05c48b" rx="3"/>
+                            <circle cx="252" cy="24" r="3.5" fill="#dc2626"/>
+
+                            <rect x="275" y="20" width="14" height="90" fill="#0a443e" rx="3"/>
+                            <rect x="275" y="112" width="14" height="25" fill="#05c48b" rx="3"/>
+
+                            <rect x="305" y="55" width="14" height="55" fill="#0a443e" rx="3"/>
+                            <rect x="305" y="112" width="14" height="35" fill="#05c48b" rx="3"/>
+
+                            <rect x="335" y="90" width="14" height="20" fill="#0a443e" rx="3"/>
+                            <rect x="335" y="112" width="14" height="20" fill="#05c48b" rx="3"/>
+
+                            <rect x="365" y="60" width="14" height="50" fill="#0a443e" rx="3"/>
+                            <rect x="365" y="112" width="14" height="30" fill="#05c48b" rx="3"/>
+
+                            <rect x="395" y="75" width="14" height="35" fill="#0a443e" rx="3"/>
+                            <rect x="395" y="112" width="14" height="25" fill="#05c48b" rx="3"/>
+
+                            <rect x="425" y="80" width="14" height="30" fill="#0a443e" rx="3"/>
+                            <rect x="425" y="112" width="14" height="20" fill="#05c48b" rx="3"/>
+
+                            <rect x="455" y="50" width="14" height="60" fill="#0a443e" rx="3"/>
+                            <rect x="455" y="112" width="14" height="35" fill="#05c48b" rx="3"/>
+
+                            <rect x="485" y="85" width="14" height="25" fill="#0a443e" rx="3"/>
+                            <rect x="485" y="112" width="14" height="20" fill="#05c48b" rx="3"/>
+
+                            <rect x="515" y="75" width="14" height="35" fill="#0a443e" rx="3"/>
+                            <rect x="515" y="112" width="14" height="25" fill="#05c48b" rx="3"/>
+
+                            <rect x="545" y="85" width="14" height="25" fill="#0a443e" rx="3"/>
+                            <rect x="545" y="112" width="14" height="15" fill="#05c48b" rx="3"/>
+
+                            <rect x="575" y="90" width="14" height="20" fill="#0a443e" rx="3"/>
+                            <rect x="575" y="112" width="14" height="15" fill="#05c48b" rx="3"/>
+
+                            <rect x="605" y="80" width="14" height="30" fill="#0a443e" rx="3"/>
+                            <rect x="605" y="112" width="14" height="25" fill="#05c48b" rx="3"/>
+
+                            <rect x="635" y="70" width="14" height="40" fill="#0a443e" rx="3"/>
+                            <rect x="635" y="112" width="14" height="18" fill="#05c48b" rx="3"/>
+
+                            <text x="72" y="210" fill="#94a3b8" font-size="9.5" text-anchor="middle">01</text>
+                            <text x="132" y="210" fill="#94a3b8" font-size="9.5" text-anchor="middle">03</text>
+                            <text x="192" y="210" fill="#94a3b8" font-size="9.5" text-anchor="middle">05</text>
+                            <text x="252" y="210" fill="#dc2626" font-size="9.5" font-weight="bold" text-anchor="middle">07</text>
+                            <text x="312" y="210" fill="#94a3b8" font-size="9.5" text-anchor="middle">09</text>
+                            <text x="372" y="210" fill="#94a3b8" font-size="9.5" text-anchor="middle">11</text>
+                            <text x="432" y="210" fill="#94a3b8" font-size="9.5" text-anchor="middle">13</text>
+                            <text x="492" y="210" fill="#94a3b8" font-size="9.5" text-anchor="middle">15</text>
+                            <text x="552" y="210" fill="#94a3b8" font-size="9.5" text-anchor="middle">17</text>
+                            <text x="612" y="210" fill="#94a3b8" font-size="9.5" text-anchor="middle">19</text>
+                            <text x="642" y="210" fill="#94a3b8" font-size="9.5" text-anchor="middle">20</text>
+                        </svg>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 10px;">
+                        <span>Telemetry: <strong>Open-Meteo Atmospheric Chemistry</strong></span>
+                        <span>Scale: <strong>US EPA Standard (0–500)</strong></span>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- 6. Automatic 6-Activity Daily Advisor Section -->
+            <section class="activity-section-block" id="activities">
+                <div class="activity-section-head">
+                    <h2>
+                        <span>🏃</span>
+                        <span>Automatic Daily Activity Recommendations</span>
+                    </h2>
+                    <p>Automated for all 6 activities based on ambient readings:</p>
+                </div>
+
+                <div class="activity-cards-shelf" id="activitiesShelf">
+                    <!-- Injected via JS -->
+                </div>
+
+                <!-- Responsible Health Communication Strip -->
+                <div class="disclaimer-strip">
+                    <span style="font-size: 18px;">🌿</span>
+                    <div>
+                        <strong>Responsible Health Advisory:</strong>
+                        AirWise provides comparative guidance to schedule daily tasks in cleaner windows. In adherence to epidemiological standards, no outdoor ambient air condition is described as completely safe.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script>
+        const cityDataCache = {
+            "new delhi": { aqi: 145, pm25: 52.4, pm10: 94.0, temp: 26.5, hum: 55, display: "New Delhi, India" },
+            "delhi": { aqi: 145, pm25: 52.4, pm10: 94.0, temp: 26.5, hum: 55, display: "New Delhi, India" },
+            "london": { aqi: 42, pm25: 10.2, pm10: 18.0, temp: 14.0, hum: 70, display: "London, UK" },
+            "tokyo": { aqi: 35, pm25: 8.5, pm10: 15.2, temp: 18.2, hum: 62, display: "Tokyo, Japan" },
+            "new york": { aqi: 48, pm25: 11.5, pm10: 22.0, temp: 16.5, hum: 50, display: "New York, USA" },
+            "paris": { aqi: 58, pm25: 15.0, pm10: 28.0, temp: 15.0, hum: 68, display: "Paris, France" },
+            "mumbai": { aqi: 115, pm25: 41.2, pm10: 82.0, temp: 29.0, hum: 78, display: "Mumbai, India" },
+            "sydney": { aqi: 28, pm25: 6.8, pm10: 12.0, temp: 21.0, hum: 55, display: "Sydney, Australia" }
+        };
+
+        function getCategory(aqi) {
+            if (aqi <= 50) return { name: "Good", badge: "badge-good", icon: "🟢", desc: "Air quality is satisfactory; minimal pulmonary risk." };
+            if (aqi <= 100) return { name: "Moderate", badge: "badge-mod", icon: "🟡", desc: "Acceptable air; sensitive individuals pace sprint duration." };
+            if (aqi <= 150) return { name: "Unhealthy for Sensitive Groups", badge: "badge-usg", icon: "🟠", desc: "Elevated PM2.5; switch strenuous runs to indoor areas." };
+            if (aqi <= 200) return { name: "Unhealthy", badge: "badge-unhealthy", icon: "🔴", desc: "High ambient pollution; postpone intense cardio workouts." };
+            if (aqi <= 300) return { name: "Very Unhealthy", badge: "badge-vunhealthy", icon: "🟣", desc: "Health alert: reduce outdoor activities; use N95 respirators." };
+            return { name: "Hazardous", badge: "badge-haz", icon: "🟤", desc: "Emergency conditions; avoid all outdoor exertion." };
+        }
+
+        function renderForecastList(currentAqi) {
+            const steps = [
+                { offset: "+3 Hours", time: "Upcoming", factor: 0.95 },
+                { offset: "+6 Hours", time: "Evening Spike", factor: 1.15 },
+                { offset: "+12 Hours", time: "Tomorrow Morn", factor: 0.82 },
+                { offset: "+18 Hours", time: "Tomorrow Noon", factor: 0.96 }
+            ];
+
+            const container = document.getElementById("forecastTimelineRows");
+            container.innerHTML = "";
+            steps.forEach(st => {
+                const estAqi = Math.max(15, Math.round(currentAqi * st.factor));
+                container.innerHTML += `
+                    <div class="forecast-item-row">
+                        <div class="forecast-row-left">
+                            <span>🌤️</span>
+                            <strong>~${estAqi} AQI</strong>
+                        </div>
+                        <div class="forecast-row-right">
+                            <span>${st.offset}</span>
+                            <strong style="color: var(--text-primary);">${st.time}</strong>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const bestAqi = Math.max(20, Math.round(currentAqi * 0.82));
+            document.getElementById("cleanestWindowVal").innerText = `~${bestAqi} AQI`;
+        }
+
+        function renderActivities(aqi) {
+            let walkSuit = aqi <= 50 ? "More favourable" : (aqi <= 150 ? "Use caution" : "Consider reducing");
+            let walkBadge = aqi <= 50 ? "suit-favourable" : (aqi <= 150 ? "suit-caution" : "suit-warning");
+
+            let runSuit = aqi <= 50 ? "More favourable" : (aqi <= 100 ? "Use caution" : "Consider postponing");
+            let runBadge = aqi <= 50 ? "suit-favourable" : (aqi <= 100 ? "suit-caution" : "suit-warning");
+
+            let cycSuit = aqi <= 50 ? "More favourable" : (aqi <= 100 ? "Use caution" : "Consider postponing");
+            let cycBadge = aqi <= 50 ? "suit-favourable" : (aqi <= 100 ? "suit-caution" : "suit-warning");
+
+            let garSuit = aqi <= 100 ? "More favourable" : (aqi <= 150 ? "Use caution" : "Consider reducing");
+            let garBadge = aqi <= 100 ? "suit-favourable" : (aqi <= 150 ? "suit-caution" : "suit-warning");
+
+            let traSuit = aqi <= 150 ? "More favourable" : "Use caution";
+            let traBadge = aqi <= 150 ? "suit-favourable" : "suit-caution";
+
+            let gamSuit = aqi <= 50 ? "More favourable" : (aqi <= 100 ? "Use caution" : "Consider postponing");
+            let gamBadge = aqi <= 50 ? "suit-favourable" : (aqi <= 100 ? "suit-caution" : "suit-warning");
+
+            const activities = [
+                {
+                    name: "Walking", icon: "🚶", suit: walkSuit, badge: walkBadge,
+                    advice: aqi <= 50 ? "Great conditions for walking." : (aqi <= 150 ? "Keep to shaded parks." : "Keep walks brief or indoor."),
+                    reason: "Low respiration rate limits particulate dose."
+                },
+                {
+                    name: "Running", icon: "🏃", suit: runSuit, badge: runBadge,
+                    advice: aqi <= 50 ? "Optimal outdoor running." : (aqi <= 100 ? "Keep sessions moderate." : "Switch to treadmill workout."),
+                    reason: "High aerobic volume pulls particles deep into lungs."
+                },
+                {
+                    name: "Cycling", icon: "🚴", suit: cycSuit, badge: cycBadge,
+                    advice: aqi <= 50 ? "Pleasant cycling conditions." : (aqi <= 100 ? "Avoid heavy diesel roads." : "Postpone long commutes."),
+                    reason: "Close proximity to street-level vehicular exhaust."
+                },
+                {
+                    name: "Gardening", icon: "🌱", suit: garSuit, badge: garBadge,
+                    advice: aqi <= 100 ? "Safe for yard work." : (aqi <= 150 ? "Take routine indoor breaks." : "Postpone dusty yard work."),
+                    reason: "Light exertion keeps breathing rates steady."
+                },
+                {
+                    name: "Travelling", icon: "🚗", suit: traSuit, badge: traBadge,
+                    advice: aqi <= 150 ? "Safe for commuting." : "Keep vehicle cabin filters clean.",
+                    reason: "Enclosed cabin protects against immediate exhaust."
+                },
+                {
+                    name: "Outdoor Games", icon: "⚽", suit: gamSuit, badge: gamBadge,
+                    advice: aqi <= 50 ? "Ideal for team matches." : (aqi <= 100 ? "Rotate players frequently." : "Move practice to indoor sports hall."),
+                    reason: "Sustained sprinting elevates minute air intake."
+                }
+            ];
+
+            const shelf = document.getElementById("activitiesShelf");
+            shelf.innerHTML = "";
+            activities.forEach(act => {
+                shelf.innerHTML += `
+                    <div class="shelf-activity-card">
+                        <div class="shelf-card-icon">${act.icon}</div>
+                        <div class="shelf-card-name">${act.name}</div>
+                        <span class="shelf-suitability-pill ${act.badge}">${act.suit}</span>
+                        <div class="shelf-card-advice">${act.advice}</div>
+                        <div class="shelf-card-reason"><strong>Why:</strong> ${act.reason}</div>
+                    </div>
+                `;
+            });
+        }
+
+        function updateCityData() {
+            const input = document.getElementById("cityInput").value.trim().toLowerCase();
+            const data = cityDataCache[input] || {
+                aqi: 145, pm25: 52.4, pm10: 94.0, temp: 26.5, hum: 55, display: input.toUpperCase()
+            };
+
+            document.getElementById("heroCityName").innerText = data.display;
+            document.getElementById("locationLabel").innerText = data.display;
+            document.getElementById("aqiNumber").innerText = data.aqi;
+            document.getElementById("tempNumber").innerText = data.temp;
+            document.getElementById("valPm25").innerText = data.pm25;
+            document.getElementById("mapPm25").innerText = data.pm25;
+            document.getElementById("mapPm10").innerText = data.pm10;
+            document.getElementById("mapHum").innerText = data.hum + "%";
+
+            const cat = getCategory(data.aqi);
+            document.getElementById("categoryText").innerText = cat.name;
+            document.getElementById("catIcon").innerText = cat.icon;
+            document.getElementById("conditionPrompt").innerText = cat.desc;
+
+            const pill = document.getElementById("statusPill");
+            pill.className = "aqi-pill-badge " + cat.badge;
+
+            const d = new Date();
+            document.getElementById("timestampText").innerText = d.toLocaleDateString() + " " + d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            renderForecastList(data.aqi);
+            renderActivities(data.aqi);
+        }
+
+        updateCityData();
+    </script>
+</body>
+</html>
